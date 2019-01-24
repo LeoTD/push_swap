@@ -32,8 +32,9 @@ int						isEmptyStack(struct s_stack *s);
 
 struct s_node			*newNode(int val);
 
+void					printStacks(struct s_stack *a, struct s_stack *b);
 /*
-**	Stack instructions:
+**	Instructions:
 */
 
 void					inst_swap(struct s_stack *s);

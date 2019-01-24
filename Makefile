@@ -35,6 +35,7 @@ FILES-C		= checker.c \
 
 FILES-S		= stack-functions.c \
 			  lib-functions.1.c \
+			  print-functions.c \
 
 SRC-S		= $(addprefix src/, $(FILES-S))
 SRC-P		= $(addprefix src/push/, $(FILES-P))
