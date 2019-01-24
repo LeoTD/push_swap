@@ -1,4 +1,5 @@
 #include "checker.h"
+#include "common.h"
 
 void		inst_swap(struct s_stack *s)
 {
@@ -6,12 +7,10 @@ void		inst_swap(struct s_stack *s)
 
 	if (s->top == NULL || s->top->next == NULL)
 		return ;
-	if (s->bot == s->top->next)
-		s->bot = s->top;
-	tmp = s->top;
-	s->top = s->top->next;
-	tmp->next = s->top->next;
-	s->top->next = tmp;
+	tmp = popStack(s);
+	inst_rot(s);
+	pushStack(s, tmp);
+	inst_rrot(s);
 }
 
 void		inst_push(struct s_stack *to, struct s_stack *from)
@@ -20,29 +19,21 @@ void		inst_push(struct s_stack *to, struct s_stack *from)
 
 	if (NULL == (tmp = popStack(from)))
 		return ;
-	if (to->bot == NULL)
-		to->bot = tmp;
-	tmp->next = to->top;
-	to->top = tmp;
+	pushStack(to, tmp);
 }
 
 void		inst_rot(struct s_stack *s)
 {
-	struct s_node		*tmp;
-
 	if (s->top == NULL || s->top->next == NULL)
 		return ;
-	tmp = s->top;
 	s->top = s->top->next;
-	s->bot->next = tmp;
-	s->bot = tmp;
+	s->bot = s->bot->next;
 }
 
 void		inst_rrot(struct s_stack *s)
 {
-	struct s_node		*tmp, *prev;
-
-	if (s->top == NULL || s->top->next == NULL)
+	if (s->top == NULL || s->top->prev == NULL)
 		return ;
-
+	s->top = s->top->prev;
+	s->bot = s->bot->prev;
 }

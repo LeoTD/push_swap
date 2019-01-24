@@ -11,25 +11,30 @@ struct s_stack			*initStack(void)
 
 	if (NULL == (tmp = malloc(sizeof(*tmp))))
 		return (NULL);
+	tmp->n = 0;
 	tmp->top = NULL;
 	tmp->bot = NULL;
 	return (tmp);
 }
 
-void					pushStack(struct s_stack *s, int val)
+void					pushStack(struct s_stack *s, struct s_node *n)
 {
-	struct s_node		*tmp;
-
-	if (NULL == (tmp = malloc(sizeof(*tmp))))
-		return ;
-	tmp->val = val;
 	if (s->top != NULL)
-		tmp->next = s->top;
+	{
+		n->next = s->top;
+		n->prev = s->bot;
+		s->top->prev = n;
+		s->bot->next = n;
+		s->top = n;
+	}
 	else
-		tmp->next = NULL;
-	s->top = tmp;
-	if (s->bot == NULL)
-		s->bot = tmp;
+	{
+		s->top = n;
+		s->bot = n;
+		n->next = n;
+		n->prev = n;
+	}
+	s->n += 1;
 }
 
 /*
@@ -41,16 +46,32 @@ struct s_node			*popStack(struct s_stack *s)
 
 	if (s->top == NULL)
 		return (NULL);
-	if (s->top->next == NULL)
-		s->bot = NULL;
 	tmp = s->top;
-	s->top = tmp->next;
+	if (s->top == s->bot)
+	{
+		s->top = NULL;
+		s->bot = NULL;
+	}
+	else
+	{
+		s->top = s->top->next;
+		s->top->prev = s->bot;
+		s->bot->next = s->top;
+	}
+	s->n -= 1;
 	return (tmp);
 }
 
-struct s_node			*peekStack(struct s_stack *s)
+struct s_node			*newNode(int val)
 {
-	return (s->top == NULL ? NULL : s->top);
+	struct s_node		*tmp;
+
+	if (NULL == (tmp = malloc(sizeof(*tmp))))
+		return NULL;
+	tmp->val = val;
+	tmp->next = NULL;
+	tmp->prev = NULL;
+	return (tmp);
 }
 
 int						isEmptyStack(struct s_stack *s)

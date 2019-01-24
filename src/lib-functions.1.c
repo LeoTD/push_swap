@@ -32,7 +32,7 @@ int				xstrlen(char *s)
 	return (i);
 }
 
-void			xprint(char *s)
+void			xputs(char *s)
 {
 	write(1, s, xstrlen(s));
 }

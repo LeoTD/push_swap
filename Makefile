@@ -3,10 +3,11 @@ NAME2		= checker
 
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
+PM			=
 INC_FLAGS	= -I inc
 
 # Useful debugging flags
-DEBUG		= -g -fsanitize=address
+DEBUG		= #-g -fsanitize=address
 
 # Cosmetics Section:
 BLUE		= \033[38;2;39;147;255m
@@ -16,20 +17,21 @@ GRAY		= \033[38;5;243m
 
 BOLD		= \033[1m
 NO_COLOR    = \033[m
-
 # End Cosmetics.
 
 # Add header files here: (use full relative path to Makefile)
-HEADERS		= $(NAME).h \
-			  $(NAME2).h \
+HEADERS		= push_swap.h \
+			  checker.h \
 			  common.h \
 
 INC			= $(addprefix inc/, $(HEADERS))
 
 # Add source files here: (files assumed to be in ./src folder)
-FILES-P		= $(NAME).c \
+FILES-P		= push_swap.c \
 
-FILES-C		= $(NAME2).c \
+FILES-C		= checker.c \
+			  instructions.c \
+			  dispatcher.c \
 
 FILES-S		= stack-functions.c \
 			  lib-functions.1.c \
@@ -50,11 +52,11 @@ all: $(NAME) $(NAME2)
 
 $(NAME2): $(OBJ) $(INC)
 	@printf "%b" "$(BOLD)$(PURP)Compiling: $(NO_COLOR)$(ORANGE)$@\n$(NO_COLOR)"
-	@$(CC) $(DEBUG) $(CFLAGS) $(INC_FLAGS) -o $(NAME2) $(SRC-C) $(LIBS)
+	@$(CC) $(DEBUG) $(CFLAGS) $(PM) $(INC_FLAGS) -o $(NAME2) $(SRC-C) $(LIBS)
 
 $(NAME): $(OBJ) $(INC)
 	@printf "%b" "$(BOLD)$(PURP)Compiling: $(NO_COLOR)$(ORANGE)$@\n$(NO_COLOR)"
-	@$(CC) $(DEBUG) $(CFLAGS) $(INC_FLAGS) -o $(NAME) $(SRC-P) $(LIBS)
+	@$(CC) $(DEBUG) $(CFLAGS) $(PM) $(INC_FLAGS) -o $(NAME) $(SRC-P) $(LIBS)
 
 obj:
 	@printf "$(GRAY)Creating obj/ directory...$(NO_COLOR)\n"
@@ -64,7 +66,7 @@ obj:
 
 obj/%.o: $(SRC) | obj
 	@printf "%b" "$(BOLD)$(PURP)---: $(NO_COLOR)$(BLUE)$@\n$(NO_COLOR)"
-	@$(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(PM) $(INC_FLAGS) -c $< -o $@
 
 clean:
 	@printf "$(GRAY)Cleaning up $(ORANGE)$(NAME)$(GRAY)...$(NO_COLOR)\n"
@@ -80,13 +82,7 @@ norm:
 	@norminette $(SRC)
 	@norminette $(INC)
 
-print: $(OBJ)
-	@printf "%b" "$(BOLD)$(PURP)Compiling: $(NO_COLOR)$(ORANGE)$(NAME)\n$(NO_COLOR)"
-	@$(CC) $(DEBUG) $(CFLAGS) $(INC_FLAGS) -D PRINT_MODE -o $(NAME) $(SRC-P) $(LIBS)
-	@printf "%b" "$(BOLD)$(PURP)Compiling: $(NO_COLOR)$(ORANGE)$(NAME2)\n$(NO_COLOR)"
-	@$(CC) $(DEBUG) $(CFLAGS) $(INC_FLAGS) -D PRINT_MODE -o $(NAME2) $(SRC-C) $(LIBS)
+run: $(NAME) $(NAME2)
 
-
-run: $(NAME)
 
 .PHONY: clean fclean all re
