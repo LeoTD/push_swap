@@ -3,7 +3,8 @@
 long			xatoi(char *s)
 {
 	long		res;
-	int			i, n;
+	int			i;
+	int			n;
 
 	i = 0;
 	n = 10;

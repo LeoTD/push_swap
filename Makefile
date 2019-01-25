@@ -30,19 +30,17 @@ INC			= $(addprefix inc/, $(HEADERS))
 FILES-P		= push_swap.c \
 
 FILES-C		= checker.c \
-			  instructions.c \
-			  dispatcher.c \
 
-FILES-S		= stack-functions.c \
-			  lib-functions.1.c \
-			  print-functions.c \
+FILES-S		= lib_functions.c \
+			  print_functions.c \
+			  array_representation.c \
+			  quick_sort.c \
+			  dispatcher.c \
 
 SRC-S		= $(addprefix src/, $(FILES-S))
 SRC-P		= $(addprefix src/push/, $(FILES-P))
 SRC-C		= $(addprefix src/check/, $(FILES-C))
 SRC			= $(SRC-P) $(SRC-C) $(SRC-S)
-SRC-P		+= $(SRC-S)
-SRC-C		+= $(SRC-S)
 OBJ			= $(addprefix obj/push/, $(FILES-P:.c=.o))
 OBJ			+= $(addprefix obj/check/, $(FILES-C:.c=.o))
 OBJ			+= $(addprefix obj/, $(FILES-S:.c=.o))
@@ -53,11 +51,11 @@ all: $(NAME) $(NAME2)
 
 $(NAME2): $(OBJ) $(INC)
 	@printf "%b" "$(BOLD)$(PURP)Compiling: $(NO_COLOR)$(ORANGE)$@\n$(NO_COLOR)"
-	@$(CC) $(DEBUG) $(CFLAGS) $(PM) $(INC_FLAGS) -o $(NAME2) $(SRC-C) $(LIBS)
+	@$(CC) $(DEBUG) $(CFLAGS) $(PM) $(INC_FLAGS) -o $(NAME2) $(SRC-C) $(SRC-S) $(LIBS)
 
 $(NAME): $(OBJ) $(INC)
 	@printf "%b" "$(BOLD)$(PURP)Compiling: $(NO_COLOR)$(ORANGE)$@\n$(NO_COLOR)"
-	@$(CC) $(DEBUG) $(CFLAGS) $(PM) $(INC_FLAGS) -o $(NAME) $(SRC-P) $(LIBS)
+	@$(CC) $(DEBUG) $(CFLAGS) $(PM) $(INC_FLAGS) -o $(NAME) $(SRC-P) $(SRC-S) $(LIBS)
 
 obj:
 	@printf "$(GRAY)Creating obj/ directory...$(NO_COLOR)\n"

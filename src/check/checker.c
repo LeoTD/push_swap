@@ -3,33 +3,30 @@
 
 #define BUFF_SIZE 128
 
-
-int		main(int ac, char **av)
+static void		check_stack(struct s_stack *s)
 {
-	struct s_stack		*a, *b;
+	(void)s;
+	xputs("\033[2J");
+	xputs("Checking...\n");
+}
+
+int				main(int ac, char **av)
+{
+	struct s_data		*data;
 	int					i;
 	char				buf[BUFF_SIZE];
 
 	i = 1;
-	a = initStack();
-	b = initStack();
-	while (i < ac)
-	{
-		pushStack(a, newNode(xatoi(av[i])));
-		++i;
-	}
-#ifdef PRINT_MODE
+	data = init_data(ac - 1, av + 1);
 	if (ac < 81)
-		printStacks(a, b);
-#endif
+		print_stacks(data->a, data->b);
 	while ((i = read(0, buf, BUFF_SIZE)) > 0)
 	{
 		buf[i] = '\0';
-		dispatcher(buf, a, b);
-#ifdef PRINT_MODE
+		dispatcher(buf, data->a, data->b);
 		if (ac < 81)
-			printStacks(a, b);
-#endif
+			print_stacks(data->a, data->b);
 	}
+	check_stack(data->a);
 	return (0);
 }
