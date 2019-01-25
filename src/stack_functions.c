@@ -1,8 +1,6 @@
 #include "push_swap.h"
 #include "common.h"
 
-#define IF_NULL(x,y) {if (NULL == (x)) { return y; }}
-
 struct s_data			*init_data(int len, char **av)
 {
 	struct s_data	*tmp;
@@ -14,6 +12,7 @@ struct s_data			*init_data(int len, char **av)
 	IF_NULL((tmp->b = malloc(sizeof(struct s_stack))), NULL)
 	IF_NULL((tmp->a->arr = malloc(sizeof(int) * len)), NULL)
 	IF_NULL((tmp->b->arr = malloc(sizeof(int) * len)), NULL)
+	IF_NULL((tmp->ops = init_instlist()), NULL);
 	i = 0;
 	while (i < len)
 	{

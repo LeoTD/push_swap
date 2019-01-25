@@ -12,26 +12,23 @@
 # include <stdlib.h>
 # include <limits.h>
 
+#define IF_NULL(x,y) {if (NULL == (x)) { return y; }}
+
 struct			s_stack
 {
-	int				*arr;
-	int				top;
-	int				n;
+	int					*arr;
+	int					top;
+	int					n;
 };
 
 struct			s_data
 {
-	struct s_stack	*a;
-	struct s_stack	*b;
+	struct s_instlist	*ops;
+	struct s_stack		*a;
+	struct s_stack		*b;
 };
 
 struct s_data	*init_data(int len, char **input);
-// void			push_stack(struct s_stack *s, struct s_node *n);
-// struct s_node	*pop_stack(struct s_stack *s);
-// int				is_empty_stack(struct s_stack *s);
-
-struct s_node	*new_node(int val);
-
 void			print_stacks(struct s_stack *a, struct s_stack *b);
 
 /*
@@ -51,6 +48,7 @@ void			dispatcher(char *op, struct s_stack *a, struct s_stack *b);
 long			xatoi(char *s);
 int				xstrlen(char *s);
 void			xputs(char *s);
+void			quick_sort(int *p, int len);
 
 /*
 **	Array Representation:

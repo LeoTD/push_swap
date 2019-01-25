@@ -16,5 +16,7 @@ int		main(int ac, char **av)
 	if (NULL == (data = init_data(ac - 1, av + 1)))
 		return (p_exit("Bad input."));
 
+	//do_the_thing();
+
 	return (0);
 }
