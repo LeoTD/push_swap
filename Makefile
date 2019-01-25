@@ -33,9 +33,9 @@ FILES-C		= checker.c \
 
 FILES-S		= lib_functions.c \
 			  print_functions.c \
-			  array_representation.c \
 			  quick_sort.c \
 			  dispatcher.c \
+			  stack_functions.c \
 
 SRC-S		= $(addprefix src/, $(FILES-S))
 SRC-P		= $(addprefix src/push/, $(FILES-P))
@@ -47,7 +47,7 @@ OBJ			+= $(addprefix obj/, $(FILES-S:.c=.o))
 
 # ---------------------------------------------------------------------------- #
 
-all: $(NAME) $(NAME2)
+all: $(OBJ) $(NAME) $(NAME2)
 
 $(NAME2): $(OBJ) $(INC)
 	@printf "%b" "$(BOLD)$(PURP)Compiling: $(NO_COLOR)$(ORANGE)$@\n$(NO_COLOR)"
@@ -80,8 +80,6 @@ norm:
 	@printf "%b" "$(GREEN)$(NAME): Checking Norm...\n$(NO_COLOR)"
 	@norminette $(SRC)
 	@norminette $(INC)
-
-run: $(NAME) $(NAME2)
 
 
 .PHONY: clean fclean all re

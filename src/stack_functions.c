@@ -31,6 +31,7 @@ struct s_data			*init_data(int len, char **av)
 	return (tmp);
 }
 
+
 void					arr_swap(struct s_stack *s)
 {
 	int				tmp;
@@ -46,8 +47,16 @@ void					arr_push(struct s_stack *to, struct s_stack *from)
 {
 	if (from->n < 1)
 		return;
-	to->top += 1;
-	to->n += 1;
+	if (to->n < 1)
+	{
+		to->n = 1;
+		to->top = 0;
+	}
+	else
+	{
+		to->top += 1;
+		to->n += 1;
+	}
 	to->arr[to->top] = from->arr[from->top];
 	from->top -= 1;
 	from->n -= 1;
