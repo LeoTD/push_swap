@@ -7,12 +7,11 @@ static void		compare_stacks(struct s_stack *a, struct s_stack *b)
 {
 	int			i;
 
-	xputs("\033[2J");
+	XPRINTF("\033[2J");
 	xputs("Checking...\n");
 	i = 0;
 	while (i < a->n)
 	{
-		xputs(".");
 		if (a->arr[i] != b->arr[i])
 		{
 			XPRINTF("\n%d != %d", a->arr[i], b->arr[i]);
@@ -36,9 +35,6 @@ int				main(int ac, char **av)
 	sorted_data = init_data(ac - 1, av + 1);
 	quick_sort(sorted_data->a->arr, sorted_data->a->n);
 	print_stacks(sorted_data->a, data->a);
-	getchar();
-	if (ac < 81)
-		print_stacks(data->a, data->b);
 	while ((i = read(0, buf, BUFF_SIZE)) > 0)
 	{
 		buf[i] = '\0';

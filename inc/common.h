@@ -12,8 +12,8 @@
 # include <stdlib.h>
 # include <limits.h>
 
-#define IF_NULL(x,y) {if (NULL == (x)) { return y; }}
-#define DO_OP(x,y) ({x; add_op(d->ops, y);})
+# define IF_NULL(x,y) {if (NULL == (x)) { return y; }}
+# define DO_OP(x,y) ({x; add_op(d->ops, y);})
 
 enum				e_inst
 {
