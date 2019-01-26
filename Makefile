@@ -28,6 +28,8 @@ INC			= $(addprefix inc/, $(HEADERS))
 
 # Add source files here: (files assumed to be in ./src folder)
 FILES-P		= push_swap.c \
+			  stack_sort.c \
+			  final_pass.c \
 
 FILES-C		= checker.c \
 
@@ -36,6 +38,7 @@ FILES-S		= lib_functions.c \
 			  quick_sort.c \
 			  dispatcher.c \
 			  stack_functions.c \
+			  instruction_list.c \
 
 SRC-S		= $(addprefix src/, $(FILES-S))
 SRC-P		= $(addprefix src/push/, $(FILES-P))

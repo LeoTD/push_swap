@@ -1,5 +1,5 @@
-#include "push_swap.h"
 #include "common.h"
+#include "push_swap.h"
 
 static int		p_exit(char *msg)
 {
@@ -13,10 +13,15 @@ int		main(int ac, char **av)
 {
 	struct s_data	*data;
 
+	XPRINTF("Loading data... ");
 	if (NULL == (data = init_data(ac - 1, av + 1)))
 		return (p_exit("Bad input."));
-
-	//do_the_thing();
+	print_stacks(data->a, data->b);
+	getchar();
+	sort_data(data);
+	print_stacks(data->a, data->b);
+	XPRINTF("list len = %d\n", data->ops->n);
+	getchar();
 
 	return (0);
 }

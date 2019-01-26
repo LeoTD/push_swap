@@ -13,7 +13,7 @@ static void		p_print_one(struct s_stack *s)
 	int					i;
 
 	i = 0;
-	while (i < s->n)
+	while (i < s->n && i < 80)
 	{
 		XPRINTF("%-10d%s%s", s->arr[i], UPLN, "\033[10D");
 		++i;

@@ -5,7 +5,7 @@ void					add_op(struct s_instlist *l, char type)
 {
 	struct s_inst		*tmp;
 
-	IF_NULL((tmp = init_inst(type)), NULL);
+	IF_NULL((tmp = init_inst(type)),);
 	if (l->head == NULL)
 	{
 		l->head = tmp;
